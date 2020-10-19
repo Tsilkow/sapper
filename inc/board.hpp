@@ -25,10 +25,6 @@ T& atCoords(std::vector< std::vector<T> >& data, sf::Vector2i coords)
     return data[coords.x][coords.y];
 }
 
-bool inRange(sf::Vector2i coords, int width, int height);
-
-void generate(std::vector< std::vector<int> >& result, int minesTotal, sf::Vector2i empty);
-
 class Board
 {
     private:
@@ -41,6 +37,8 @@ class Board
     std::vector<sf::Vertex> m_interface; // interface elements independent from data
     std::vector<sf::Vector2i> m_justRevealed;
     sf::RenderStates m_states;
+    bool m_firstClick;
+    sf::Texture m_mapTexture;
 
     bool inRange(sf::Vector2i coords);
 
@@ -55,6 +53,8 @@ class Board
 
     // true means a mine went off
     bool stepOn(sf::Vector2i coords);
+
+    bool clickAt(sf::Vector2f mouse);
     
     void draw(sf::RenderTarget& target);
 };

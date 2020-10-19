@@ -26,7 +26,7 @@ int main()
     {
 	sf::IntRect(-400, -400, 800, 800), // m_bounds
 	sf::Vector2i(10, 10),              // m_dimensions
-        20,                                // m_minesTotal
+        10,                                // m_minesTotal
 	{                                  // m_neighbourhood
 	    sf::Vector2i( 0, -1),
 	    sf::Vector2i(-1, -1),
@@ -102,7 +102,7 @@ int main()
     window.setView(actionView);
 
     enum GameState{Menu, Play, Scores};
-    GameState currState = GameState::Menu;
+    GameState currState = GameState::Play;
     bool hasFocus = true;
     bool newScore = false;
     bool firstTimeInScores = true;
@@ -147,6 +147,21 @@ int main()
 
 	    if(hasFocus)
 	    {
+		switch(currState)
+		{
+		    case GameState::Menu:
+			break;
+
+		    case GameState::Play:
+			if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+			    board.clickAt(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
+			}
+			break;
+
+		    case GameState::Scores:
+			break;
+		}
 	    }
 	}
 
@@ -158,7 +173,11 @@ int main()
 
 	
 	    case GameState::Play:
+
+		
+
 	        playInterface.draw(window);
+		board.draw(window);
 		
 		if(hasFocus)
 		{
